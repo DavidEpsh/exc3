@@ -56,6 +56,7 @@ public class AddStudentActivity extends AppCompatActivity {
                 Log.d("TAG","save pressed");
                 if(requieredFieldsFilled()) {
                     //saveStudent();
+                    //add
                 }
             }
         });
