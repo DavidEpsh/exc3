@@ -11,13 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import david.elena.exc3.R;
 import david.elena.exc3.StudentDB;
 import david.elena.exc3.models.Student;
 
-public class AddStudentActivity extends AppCompatActivity {
+public class ViewStudentActivity extends AppCompatActivity {
 
     EditText firstName;
     EditText id;
@@ -25,26 +26,36 @@ public class AddStudentActivity extends AppCompatActivity {
     EditText phone;
     EditText address;
     CheckBox checkBox;
+    int studentPos;
+    Student currStudent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_student_activity);
+        setContentView(R.layout.view_student_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        firstName = (EditText) findViewById(R.id.edit_text_student_first_name);
-        id = (EditText) findViewById(R.id.edit_text_student_id);
-        lastName = (EditText) findViewById(R.id.edit_text_student_last_name);
-        phone = (EditText) findViewById(R.id.edit_text_student_phone);
-        address = (EditText) findViewById(R.id.edit_text_student_address);
-        checkBox = (CheckBox) findViewById(R.id.checkbox_add_student);
 
-        Button cancel = (Button) findViewById(R.id.button_cancel);
-        Button save = (Button) findViewById(R.id.button_save_student);
+        if(getIntent() != null) {
+            studentPos = getIntent().getIntExtra(MainActivity.ITEM_IN_LIST, 0);
+            currStudent = StudentDB.getInstance().getStudent(studentPos);
+        }
+
+        firstName = (EditText) findViewById(R.id.edit_text_student_first_name_edit_student);
+        id = (EditText) findViewById(R.id.edit_text_student_id_edit_student);
+        lastName = (EditText) findViewById(R.id.edit_text_student_last_name_edit_student);
+        phone = (EditText) findViewById(R.id.edit_text_student_phone_edit_student);
+        address = (EditText) findViewById(R.id.edit_text_student_address_edit_student);
+        checkBox = (CheckBox) findViewById(R.id.checkbox_add_student_edit_student);
+
+        setDefaultValues();
+
+        Button cancel = (Button) findViewById(R.id.button_cancel_edit_student);
+        Button save = (Button) findViewById(R.id.button_save_student_edit_student);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,5 +138,18 @@ public class AddStudentActivity extends AppCompatActivity {
         Toast.makeText(this, firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
     }
 
+    public void setDefaultValues(){
+
+        if(currStudent != null) {
+            firstName.setText(currStudent.getFirstName());
+            lastName.setText(currStudent.getLastName());
+            id.setText(currStudent.getId());
+            phone.setText(currStudent.getPhoneNumber());
+            address.setText(currStudent.getAddress());
+            checkBox.setChecked(currStudent.isChecked());
+        }else {
+            Toast.makeText(this, "Failed to open student details", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

@@ -3,7 +3,6 @@ package david.elena.exc3.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("TAG", "row " + position + " selected");
-                Intent intent = new Intent(MainActivity.this, AddStudentActivity.class);
+                Intent intent = new Intent(MainActivity.this, ViewStudentActivity.class);
                 intent.putExtra(ITEM_IN_LIST,position);
                 startActivity(intent);
             }
