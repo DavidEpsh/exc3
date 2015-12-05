@@ -64,8 +64,6 @@ public class AddStudentActivity extends AppCompatActivity {
                 }
             }
         });
-
-        addTestText();
     }
 
     @Override
