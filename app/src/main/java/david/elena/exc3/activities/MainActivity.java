@@ -24,22 +24,24 @@ public class MainActivity extends AppCompatActivity {
 
     ListView studentList;
     List<Student> mStudentListDB;
+    StudentListAdapter adapter;
 
     public static String ITEM_IN_LIST = "position";
+    public static int RESULT_ADD_STUDENT = 55;
+    public static int RESULT_EDIT_STUDENT = 56;
+    public static int RESULT_FINISHED_EDITING = 57;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         mStudentListDB = StudentDB.getInstance().getList();
         studentList = (ListView)findViewById(R.id.studentListView);
-        StudentListAdapter adapter = new StudentListAdapter(mStudentListDB, this);
-        studentList.setAdapter(adapter);
-
-        ArrayAdapter<Student> arrayAdapter = new ArrayAdapter<Student>(this,R.layout.student_row_layout,R.id.firstNameRow,mStudentListDB);
+        adapter = new StudentListAdapter(mStudentListDB, this);
         studentList.setAdapter(adapter);
 
         studentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("TAG", "row " + position + " selected");
                 Intent intent = new Intent(MainActivity.this, ViewStudentActivity.class);
-                intent.putExtra(ITEM_IN_LIST,position);
-                startActivity(intent);
+                intent.putExtra(ITEM_IN_LIST, position);
+                startActivityForResult(intent, RESULT_FINISHED_EDITING);
             }
         });
 
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,AddStudentActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, RESULT_ADD_STUDENT);
 
             }
         });
@@ -83,5 +85,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_ADD_STUDENT) {
+            if (resultCode == RESULT_OK) {
+                adapter.notifyDataSetChanged();
+            }
+        } else if(requestCode == RESULT_FINISHED_EDITING) {
+            if (resultCode == RESULT_OK) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", MainActivity.RESULT_FINISHED_EDITING);
+                setResult(this.RESULT_OK, returnIntent);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

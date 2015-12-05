@@ -9,12 +9,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.EditStudentActivity"
+    tools:context=".activities.ViewStudentActivity"
     tools:showIn="@layout/view_student_activity"
     >
 
     <RelativeLayout
-        android:id="@+id/relative_layout_add_student_edit_student"
+        android:id="@+id/relative_layout_add_student_view_student"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
@@ -25,12 +25,12 @@
         android:paddingBottom="5dp">
 
         <RelativeLayout
-            android:id="@+id/relative_layout_student_image_edit_student"
+            android:id="@+id/relative_layout_student_image_view_student"
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
 
             <ImageButton
-                android:id="@+id/pictureImageButton_edit_student"
+                android:id="@+id/pictureImageButton_view_student"
                 android:layout_alignParentLeft="true"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -43,9 +43,9 @@
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/edit_text_student_first_name_edit_student"
+            android:id="@+id/edit_text_student_first_name_view_student"
             android:hint="First name"
-            android:layout_below="@+id/relative_layout_student_image_edit_student"
+            android:layout_below="@+id/relative_layout_student_image_view_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -60,13 +60,13 @@
             android:cursorVisible="false"/>
 
         <EditText
-            android:id="@+id/edit_text_student_last_name_edit_student"
+            android:id="@+id/edit_text_student_last_name_view_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_first_name_edit_student"
+            android:layout_below="@+id/edit_text_student_first_name_view_student"
             android:hint="Last Name"
             android:imeOptions="actionNext"
             android:focusable="false"
@@ -76,13 +76,13 @@
             android:cursorVisible="false"/>
 
         <EditText
-            android:id="@+id/edit_text_student_id_edit_student"
+            android:id="@+id/edit_text_student_id_view_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_last_name_edit_student"
+            android:layout_below="@+id/edit_text_student_last_name_view_student"
             android:hint="Student ID"
             android:inputType="number"
             android:imeOptions="actionNext"
@@ -93,13 +93,13 @@
             android:cursorVisible="false"/>
 
         <EditText
-            android:id="@+id/edit_text_student_phone_edit_student"
+            android:id="@+id/edit_text_student_phone_view_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_id_edit_student"
+            android:layout_below="@+id/edit_text_student_id_view_student"
             android:hint="Phone Number"
             android:inputType="number"
             android:focusable="false"
@@ -110,13 +110,13 @@
             android:cursorVisible="false"/>
 
         <EditText
-            android:id="@+id/edit_text_student_address_edit_student"
+            android:id="@+id/edit_text_student_address_view_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_phone_edit_student"
+            android:layout_below="@+id/edit_text_student_phone_view_student"
             android:hint="Address"
             android:imeOptions="actionDone"
             android:clickable="false"
@@ -126,14 +126,14 @@
             android:cursorVisible="false"/>
 
         <CheckBox
-            android:id="@+id/checkbox_add_student_edit_student"
+            android:id="@+id/checkbox_add_student_view_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/edit_text_student_address_edit_student"
+            android:layout_below="@+id/edit_text_student_address_view_student"
             android:text="Checked"
             android:clickable="false"/>
 
@@ -143,21 +143,15 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/relative_layout_add_student_edit_student"
-        android:gravity="bottom">
+        android:layout_below="@id/relative_layout_add_student_view_student"
+        android:gravity="end"
+        android:weightSum="2">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="CANCEL"
-            android:id="@+id/button_cancel_edit_student"
-            android:layout_weight="1"
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="SAVE"
-            android:id="@+id/button_save_student_edit_student"
+            android:text="EDIT"
+            android:id="@+id/button_edit_view_student"
             android:layout_weight="1"
             />
     </LinearLayout>

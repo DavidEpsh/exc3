@@ -1,5 +1,6 @@
 package david.elena.exc3.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,8 @@ public class AddStudentActivity extends AppCompatActivity {
                 }
             }
         });
+
+        addTestText();
     }
 
     @Override
@@ -119,12 +122,25 @@ public class AddStudentActivity extends AppCompatActivity {
                                     lastName.getText().toString(),
                                     id.getText().toString(),
                                     phone.getText().toString(),
-                                    address.toString(),checkBox.isChecked());
+                                    address.getText().toString(),
+                                    checkBox.isChecked());
 
         StudentDB.getInstance().addStudent(newSt);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", MainActivity.RESULT_ADD_STUDENT);
+        setResult(this.RESULT_OK, returnIntent);
+
         finish();
 
         Toast.makeText(this, firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
+    }
+
+    public void addTestText(){
+        firstName.setText("aaa");
+        lastName.setText("bbb");
+        id.setText("123");
+        phone.setText("321");
+        address.setText("ccc");
     }
 
 

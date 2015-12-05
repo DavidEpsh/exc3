@@ -1,5 +1,6 @@
 package david.elena.exc3.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -45,35 +46,27 @@ public class ViewStudentActivity extends AppCompatActivity {
             currStudent = StudentDB.getInstance().getStudent(studentPos);
         }
 
-        firstName = (EditText) findViewById(R.id.edit_text_student_first_name_edit_student);
-        id = (EditText) findViewById(R.id.edit_text_student_id_edit_student);
-        lastName = (EditText) findViewById(R.id.edit_text_student_last_name_edit_student);
-        phone = (EditText) findViewById(R.id.edit_text_student_phone_edit_student);
-        address = (EditText) findViewById(R.id.edit_text_student_address_edit_student);
-        checkBox = (CheckBox) findViewById(R.id.checkbox_add_student_edit_student);
+        firstName = (EditText) findViewById(R.id.edit_text_student_first_name_view_student);
+        id = (EditText) findViewById(R.id.edit_text_student_id_view_student);
+        lastName = (EditText) findViewById(R.id.edit_text_student_last_name_view_student);
+        phone = (EditText) findViewById(R.id.edit_text_student_phone_view_student);
+        address = (EditText) findViewById(R.id.edit_text_student_address_view_student);
+        checkBox = (CheckBox) findViewById(R.id.checkbox_add_student_view_student);
 
-        setDefaultValues();
+        setValues();
 
-        Button cancel = (Button) findViewById(R.id.button_cancel_edit_student);
-        Button save = (Button) findViewById(R.id.button_save_student_edit_student);
+        Button btnEdit = (Button) findViewById(R.id.button_edit_view_student);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                Toast.makeText(v.getContext(),"Canceled", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewStudentActivity.this, EditStudentActivity.class);
+                intent.putExtra(MainActivity.ITEM_IN_LIST,studentPos);
+                startActivityForResult(intent, MainActivity.RESULT_FINISHED_EDITING);
+
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG","save pressed");
-                if(requiredFieldsFilled()) {
-                    saveStudent();
-                }
-            }
-        });
     }
 
     @Override
@@ -98,47 +91,8 @@ public class ViewStudentActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean requiredFieldsFilled() {
 
-        boolean isFilled = true;
-
-        if (firstName.getText().toString().trim().equalsIgnoreCase("")) {
-            firstName.setError("Enter Student Name");
-            isFilled = false;
-        }
-         if (lastName.getText().toString().trim().equalsIgnoreCase("")) {
-             lastName.setError("Enter Student Last Name");
-             isFilled = false;
-         }
-        if (id.getText() == null) {
-            id.setError("Enter Student ID");
-            isFilled = false;
-        }
-        if (phone.getText() == null) {
-            phone.setError("Enter Phone Number");
-            isFilled = false;
-        }
-        if (address.getText() == null) {
-            address.setError("Enter Address");
-            isFilled = false;
-        }
-        return isFilled;
-    }
-
-    public void saveStudent(){
-        Student newSt = new Student(firstName.getText().toString(),
-                                    lastName.getText().toString(),
-                                    id.getText().toString(),
-                                    phone.getText().toString(),
-                                    address.toString(),checkBox.isChecked());
-
-        StudentDB.getInstance().addStudent(newSt);
-        finish();
-
-        Toast.makeText(this, firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
-    }
-
-    public void setDefaultValues(){
+    public void setValues(){
 
         if(currStudent != null) {
             firstName.setText(currStudent.getFirstName());
@@ -149,6 +103,20 @@ public class ViewStudentActivity extends AppCompatActivity {
             checkBox.setChecked(currStudent.isChecked());
         }else {
             Toast.makeText(this, "Failed to open student details", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MainActivity.RESULT_FINISHED_EDITING) {
+            if (resultCode == RESULT_OK) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", MainActivity.RESULT_FINISHED_EDITING);
+                setResult(this.RESULT_OK, returnIntent);
+
+                finish();
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 
