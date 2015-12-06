@@ -3,6 +3,7 @@ package david.elena.exc3.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +19,7 @@ import java.util.List;
 import david.elena.exc3.R;
 import david.elena.exc3.StudentDB;
 import david.elena.exc3.adapters.StudentListAdapter;
+import david.elena.exc3.fragments.StudentListFragment;
 import david.elena.exc3.models.Student;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,16 +46,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new StudentListAdapter(mStudentListDB, this);
         studentList.setAdapter(adapter);
 
-        studentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("TAG", "row " + position + " selected");
-                Intent intent = new Intent(MainActivity.this, ViewStudentActivity.class);
-                intent.putExtra(ITEM_IN_LIST, position);
-                startActivityForResult(intent, RESULT_FINISHED_EDITING);
-            }
-        });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        openFragment(new StudentListFragment());
+        setTitle("Student List");
     }
 
     @Override
@@ -102,5 +97,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void openFragment(final Fragment fragment){
+        getSupportFragmentManager()
+        .beginTransaction()
+                .replace(R.id.container,fragment)
+                .commit();
     }
 }
