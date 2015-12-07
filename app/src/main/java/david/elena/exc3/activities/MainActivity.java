@@ -6,20 +6,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
 
 import david.elena.exc3.R;
-import david.elena.exc3.StudentDB;
 import david.elena.exc3.adapters.StudentListAdapter;
-import david.elena.exc3.fragments.StudentListFragment;
+import david.elena.exc3.fragments.FragmentStudentList;
 import david.elena.exc3.models.Student;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,13 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
-
-        mStudentListDB = StudentDB.getInstance().getList();
-        studentList = (ListView)findViewById(R.id.studentListView);
-        adapter = new StudentListAdapter(mStudentListDB, this);
-        studentList.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        openFragment(new StudentListFragment());
+        openFragment(new FragmentStudentList());
         setTitle("Student List");
     }
 
@@ -65,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem add = menu.findItem(R.id.action_edit);
-        add.setIcon(R.drawable.ic_add_white);
+        menu.findItem(R.id.action_edit).setVisible(false);
+        menu.findItem(R.id.action_add).setVisible(true);
 
         return true;
     }
@@ -81,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+
+        }else if(id == R.id.action_add){
+            //TODO
         }
 
         return super.onOptionsItemSelected(item);
@@ -106,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openFragment(final Fragment fragment){
         getSupportFragmentManager()
-        .beginTransaction()
+                .beginTransaction()
                 .replace(R.id.container,fragment)
                 .commit();
     }

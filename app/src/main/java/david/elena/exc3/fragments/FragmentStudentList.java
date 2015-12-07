@@ -18,16 +18,14 @@ import david.elena.exc3.activities.ViewStudentActivity;
 import david.elena.exc3.adapters.StudentListAdapter;
 import david.elena.exc3.models.Student;
 
-public class StudentListFragment extends Fragment {
+public class FragmentStudentList extends Fragment {
 
     private View mRootView;
     private ListView studentList;
     private StudentListAdapter mAdapter;
     private List<Student> mStudentListDB;
 
-
-
-    public StudentListFragment() {
+    public FragmentStudentList() {
     }
 
     @Override
@@ -51,13 +49,5 @@ public class StudentListFragment extends Fragment {
 
         return mRootView;
     }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        mAdapter.notifyDataSetChanged();
-    }
-
-
 
 }

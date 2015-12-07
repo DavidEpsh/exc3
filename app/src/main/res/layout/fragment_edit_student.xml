@@ -1,0 +1,139 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FragmentEditStudent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_edit_student"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp">
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_edit_student_image"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <ImageButton
+                android:id="@+id/pictureImageButton_edit_student"
+                android:layout_alignParentLeft="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/material_blue_grey_950"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/sym_def_app_icon" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/edit_text_student_first_name_edit_student"
+            android:hint="First name"
+            android:layout_below="@+id/relative_layout_edit_student_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_marginBottom="-5dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:imeOptions="actionNext" />
+
+        <EditText
+            android:id="@+id/edit_text_student_last_name_edit_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/edit_text_student_first_name_edit_student"
+            android:hint="Last Name"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit_text_student_id_edit_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/edit_text_student_last_name_edit_student"
+            android:hint="Student ID"
+            android:inputType="number"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit_text_student_phone_edit_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/edit_text_student_id_edit_student"
+            android:hint="Phone Number"
+            android:inputType="number"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit_text_student_address_edit_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/edit_text_student_phone_edit_student"
+            android:hint="Address"
+            android:imeOptions="actionDone"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_edit_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/edit_text_student_address_edit_student"
+            android:text="Checked" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative_layout_edit_student"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:id="@+id/button_cancel_edit_student"
+            android:layout_weight="1"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DELETE"
+            android:id="@+id/button_delete_edit_student"
+            android:layout_weight="1"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:id="@+id/button_save_edit_student"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+</FrameLayout>
+
