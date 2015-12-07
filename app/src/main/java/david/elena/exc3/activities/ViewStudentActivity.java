@@ -73,6 +73,12 @@ public class ViewStudentActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem edit = menu.findItem(R.id.action_edit);
+        edit.setIcon(R.drawable.ic_mode_edit_white);
+        edit.setTitle("Edit Student");
+
+
         return true;
     }
 
