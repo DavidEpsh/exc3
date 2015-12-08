@@ -1,7 +1,5 @@
 package david.elena.exc3.fragments;
 
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,8 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import david.elena.exc3.R;
-import david.elena.exc3.StudentDB;
-import david.elena.exc3.activities.MainActivity;
 import david.elena.exc3.activities.ViewStudentActivity;
 import david.elena.exc3.models.Student;
 
@@ -27,7 +23,7 @@ public class FragmentViewStudent extends Fragment {
     EditText phone;
     EditText address;
     CheckBox checkBox;
-    int studentPos;
+    ViewStudentActivity mActivity;
     Student currStudent;
 
 
@@ -37,10 +33,8 @@ public class FragmentViewStudent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        studentPos = getArguments().getInt(ViewStudentActivity.BUNDLE_STUDENT_POSITION);
         mRootView = inflater.inflate(R.layout.fragment_view_student, container, false);
-
-        currStudent = StudentDB.getInstance().getStudent(studentPos);
+        mActivity = (ViewStudentActivity) getActivity();
 
         firstName = (EditText) mRootView.findViewById(R.id.edit_text_student_first_name_view_student);
         id = (EditText) mRootView.findViewById(R.id.edit_text_student_id_view_student);
@@ -65,6 +59,24 @@ public class FragmentViewStudent extends Fragment {
             checkBox.setChecked(currStudent.isChecked());
         }else {
             Toast.makeText(mRootView.getContext(), "Failed to open student details", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void setStudent(Student student){
+        this.currStudent = student;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+       setTitleAndMenu();
+    }
+
+    public void setTitleAndMenu(){
+        if(mActivity.menu != null) {
+            mActivity.showOnlyItem(R.id.action_edit);
+            mActivity.setTitle("View Student Details");
         }
     }
 }

@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if(requestCode == RESULT_FINISHED_EDITING) {
             if (resultCode == RESULT_OK) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result", MainActivity.RESULT_FINISHED_EDITING);
-                setResult(this.RESULT_OK, returnIntent);
                 adapter.notifyDataSetChanged();
             }
         }
@@ -103,4 +100,10 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container,fragment)
                 .commit();
     }
+
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        adapter.notifyDataSetChanged();
+//    }
 }

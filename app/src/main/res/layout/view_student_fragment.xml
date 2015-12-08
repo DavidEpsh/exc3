@@ -1,13 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container_fragment_edit_student"
-    tools:context=".fragments.FragmentEditStudent"
-    >
+    android:id="@+id/container_view_student_fragment"
+    tools:context=".fragments.fragment_student_list">
 
     <RelativeLayout
-        android:id="@+id/relative_layout_edit_student"
+        android:id="@+id/relative_layout_add_student"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
@@ -18,12 +18,12 @@
         android:paddingBottom="5dp">
 
         <RelativeLayout
-            android:id="@+id/relative_layout_edit_student_image"
+            android:id="@+id/relative_layout_student_image"
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
 
             <ImageButton
-                android:id="@+id/pictureImageButton_edit_student"
+                android:id="@+id/pictureImageButton"
                 android:layout_alignParentLeft="true"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -36,9 +36,9 @@
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/edit_text_student_first_name_edit_student"
+            android:id="@+id/edit_text_student_first_name"
             android:hint="First name"
-            android:layout_below="@+id/relative_layout_edit_student_image"
+            android:layout_below="@+id/relative_layout_student_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -48,93 +48,62 @@
             android:imeOptions="actionNext" />
 
         <EditText
-            android:id="@+id/edit_text_student_last_name_edit_student"
+            android:id="@+id/edit_text_student_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_first_name_edit_student"
+            android:layout_below="@+id/edit_text_student_first_name"
             android:hint="Last Name"
             android:imeOptions="actionNext"/>
 
         <EditText
-            android:id="@+id/edit_text_student_id_edit_student"
+            android:id="@+id/edit_text_student_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_last_name_edit_student"
+            android:layout_below="@+id/edit_text_student_last_name"
             android:hint="Student ID"
             android:inputType="number"
             android:imeOptions="actionNext"/>
 
         <EditText
-            android:id="@+id/edit_text_student_phone_edit_student"
+            android:id="@+id/edit_text_student_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_id_edit_student"
+            android:layout_below="@+id/edit_text_student_id"
             android:hint="Phone Number"
             android:inputType="number"
             android:imeOptions="actionNext"/>
 
         <EditText
-            android:id="@+id/edit_text_student_address_edit_student"
+            android:id="@+id/edit_text_student_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:layout_below="@+id/edit_text_student_phone_edit_student"
+            android:layout_below="@+id/edit_text_student_phone"
             android:hint="Address"
             android:imeOptions="actionDone"/>
 
         <CheckBox
-            android:id="@+id/checkbox_edit_student"
+            android:id="@+id/checkbox_add_student"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/edit_text_student_address_edit_student"
+            android:layout_below="@+id/edit_text_student_address"
             android:text="Checked" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relative_layout_edit_student"
-        android:layout_gravity="bottom">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="CANCEL"
-            android:id="@+id/button_cancel_edit_student"
-            android:layout_weight="1"
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="DELETE"
-            android:id="@+id/button_delete_edit_student"
-            android:layout_weight="1"
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="SAVE"
-            android:id="@+id/button_save_edit_student"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
-
 </FrameLayout>
-

@@ -26,12 +26,6 @@ public class EditStudentActivity extends AppCompatActivity {
 
     static public String BUNDLE_STUDENT_POSITION = "student_position";
 
-    EditText firstName;
-    EditText id;
-    EditText lastName;
-    EditText phone;
-    EditText address;
-    CheckBox checkBox;
     Student currStudent;
     int studentPos;
 

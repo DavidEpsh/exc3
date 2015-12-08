@@ -1,7 +1,6 @@
 package david.elena.exc3.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import david.elena.exc3.R;
 import david.elena.exc3.StudentDB;
-import david.elena.exc3.activities.MainActivity;
 import david.elena.exc3.activities.ViewStudentActivity;
 import david.elena.exc3.models.Student;
 
@@ -30,7 +28,7 @@ public class FragmentEditStudent extends Fragment {
     CheckBox checkBox;
     int studentPos;
     Student currStudent;
-
+    ViewStudentActivity mActivity;
 
     public FragmentEditStudent() {
     }
@@ -38,10 +36,8 @@ public class FragmentEditStudent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        studentPos = getArguments().getInt(ViewStudentActivity.BUNDLE_STUDENT_POSITION);
         mRootView = inflater.inflate(R.layout.fragment_edit_student, container, false);
-
-        currStudent = StudentDB.getInstance().getStudent(studentPos);
+        mActivity = (ViewStudentActivity) getActivity();
 
         firstName = (EditText) mRootView.findViewById(R.id.edit_text_student_first_name_edit_student);
         id = (EditText) mRootView.findViewById(R.id.edit_text_student_id_edit_student);
@@ -50,6 +46,7 @@ public class FragmentEditStudent extends Fragment {
         address = (EditText) mRootView.findViewById(R.id.edit_text_student_address_edit_student);
         checkBox = (CheckBox) mRootView.findViewById(R.id.checkbox_edit_student);
 
+        getActivity().setTitle("Edit Student Details");
         setValues();
 
         Button cancel = (Button) mRootView.findViewById(R.id.button_cancel_edit_student);
@@ -67,13 +64,9 @@ public class FragmentEditStudent extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Student Deleted", Toast.LENGTH_SHORT).show();
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result", MainActivity.RESULT_FINISHED_EDITING);
-                getActivity().setResult(MainActivity.RESULT_OK, returnIntent);
 
                 StudentDB.getInstance().removeStudent(studentPos);
-                getActivity().finish();
+                mActivity.setResultAndFinish();
             }
         });
 
@@ -99,11 +92,7 @@ public class FragmentEditStudent extends Fragment {
 
         StudentDB.getInstance().editStudent(newSt, studentPos);
 
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", MainActivity.RESULT_FINISHED_EDITING);
-        getActivity().setResult(MainActivity.RESULT_OK, returnIntent);
-
-        getActivity().finish();
+        mActivity.setResultAndFinish();
 
         Toast.makeText(getContext(), firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
     }
@@ -147,5 +136,10 @@ public class FragmentEditStudent extends Fragment {
             isFilled = false;
         }
         return isFilled;
+    }
+
+    public void setStudent(Student student, int studentPos){
+        this.currStudent = student;
+        this.studentPos = studentPos;
     }
 }
