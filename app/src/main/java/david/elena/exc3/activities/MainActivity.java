@@ -20,10 +20,6 @@ import david.elena.exc3.models.Student;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView studentList;
-    List<Student> mStudentListDB;
-    StudentListAdapter adapter;
-
     public static String ITEM_IN_LIST = "position";
     public static int RESULT_ADD_STUDENT = 55;
     public static int RESULT_EDIT_STUDENT = 56;
@@ -35,16 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,AddStudentActivity.class);
-                startActivityForResult(intent, RESULT_ADD_STUDENT);
-
-            }
-        });
 
         openFragment(new FragmentStudentList());
         setTitle("Student List");
@@ -73,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         }else if(id == R.id.action_add){
-            //TODO
+            Intent intent = new Intent(MainActivity.this,AddStudentActivity.class);
+            startActivityForResult(intent, RESULT_ADD_STUDENT);
         }
 
         return super.onOptionsItemSelected(item);

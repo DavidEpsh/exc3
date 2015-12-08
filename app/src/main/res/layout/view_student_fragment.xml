@@ -25,8 +25,8 @@
             <ImageButton
                 android:id="@+id/pictureImageButton"
                 android:layout_alignParentLeft="true"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginBottom="12dp"
                 android:background="@color/material_blue_grey_950"
                 android:layout_centerHorizontal="true"

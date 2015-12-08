@@ -22,13 +22,6 @@ import david.elena.exc3.models.Student;
 public class ViewStudentActivity extends AppCompatActivity {
 
     static public String BUNDLE_STUDENT_POSITION = "student_position";
-
-    EditText firstName;
-    EditText id;
-    EditText lastName;
-    EditText phone;
-    EditText address;
-    CheckBox checkBox;
     int studentPos;
     Student currStudent;
     FragmentEditStudent fragmentEdit;
@@ -103,18 +96,6 @@ public class ViewStudentActivity extends AppCompatActivity {
         setResult(this.RESULT_OK, returnIntent);
 
         finish();
-    }
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MainActivity.RESULT_FINISHED_EDITING) {
-            if (resultCode == RESULT_OK) {
-                setResultAndFinish();
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void openFragment(final Fragment fragment){
