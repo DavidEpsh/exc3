@@ -79,31 +79,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_ADD_STUDENT) {
-            if (resultCode == RESULT_OK) {
-                adapter.notifyDataSetChanged();
-            }
-        } else if(requestCode == RESULT_FINISHED_EDITING) {
-            if (resultCode == RESULT_OK) {
-                adapter.notifyDataSetChanged();
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
     private void openFragment(final Fragment fragment){
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container,fragment)
                 .commit();
     }
-
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        adapter.notifyDataSetChanged();
-//    }
 }

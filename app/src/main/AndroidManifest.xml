@@ -28,11 +28,6 @@
             android:label="View Student Details"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".activities.EditStudentActivity"
-            android:label="Edit Student Details"
-            android:parentActivityName=".activities.ViewStudentActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

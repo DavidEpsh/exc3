@@ -50,4 +50,10 @@ public class FragmentStudentList extends Fragment {
         return mRootView;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
+
 }
