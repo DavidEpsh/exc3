@@ -1,5 +1,6 @@
 package david.elena.exc3;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +46,9 @@ public class StudentDB {
 
 
     private void addTestData(){
-        addStudent(new Student("Han","Solo","2486","055-4545454","Dstar",true));
-        addStudent(new Student("Luke","SkyW","6842","055-1212121","Dstar",true));
+        int[] tempTime = new int[]{9,30, Calendar.AM};
+        int[] tempDate = new int[]{12,11,2015};
+        addStudent(new Student("Han","Solo","2486","055-4545454","Dstar",true,tempDate,tempTime));
+        addStudent(new Student("Luke","SkyW","6842","055-1212121","Dstar",true,tempDate,tempTime));
     }
 }

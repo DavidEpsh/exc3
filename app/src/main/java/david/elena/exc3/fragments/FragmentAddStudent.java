@@ -41,8 +41,8 @@ public class FragmentAddStudent extends Fragment {
     Button buttonBirthTime;
     int[] mBirthDate, mBirthTime;
     int mYear, mMonth, mDay;
-    int mHour, mMinutes, am_pm;
-    String AM_PM, mMinute;
+    int mHour, mMinutes;
+    String AM_PM;
 
     public FragmentAddStudent() {
     }
@@ -94,7 +94,9 @@ public class FragmentAddStudent extends Fragment {
                 id.getText().toString(),
                 phone.getText().toString(),
                 address.getText().toString(),
-                checkBox.isChecked());
+                checkBox.isChecked(),
+                mBirthDate,
+                mBirthTime);
 
         StudentDB.getInstance().addStudent(newSt);
         mActivity.setResultAndFinish();
@@ -139,7 +141,7 @@ public class FragmentAddStudent extends Fragment {
     private void setDateAndTime(){
         final Calendar c = Calendar.getInstance();
         mBirthDate = new int[3];
-        mBirthTime = new int[2];
+        mBirthTime = new int[3];
 
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -147,8 +149,8 @@ public class FragmentAddStudent extends Fragment {
 
         mBirthTime[0] = c.get(Calendar.HOUR);
         mBirthTime[1] = c.get(Calendar.SECOND);
+        mBirthTime[2] = c.get(Calendar.AM_PM);
 
-        am_pm = c.get(Calendar.AM_PM);
         buttonBirthTime.setText(getTimeString(mBirthTime));
 
         mBirthDate[0] = mDay;
@@ -181,16 +183,13 @@ public class FragmentAddStudent extends Fragment {
         final TimePickerDialog timePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                if (hourOfDay == 0){
-                    am_pm = Calendar.AM;
-                    AM_PM = "AM";
 
-                }else if(hourOfDay >= 12){
+                if(hourOfDay >= 12){
                     hourOfDay = hourOfDay % 12;
-                    am_pm = Calendar.PM;
+                    mBirthTime[3] = Calendar.PM;
                     AM_PM = "PM";
                 }else{
-                    am_pm = Calendar.AM;
+                    mBirthTime[3] = Calendar.AM;
                     AM_PM = "AM";
                 }
 
@@ -198,7 +197,7 @@ public class FragmentAddStudent extends Fragment {
                 mBirthTime[1] = minute;
                 buttonBirthTime.setText(getTimeString(mBirthTime));
             }
-        },mHour, mMinutes, false);
+        },Calendar.HOUR_OF_DAY, mMinutes, false);
 
         buttonBirthTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,8 +208,13 @@ public class FragmentAddStudent extends Fragment {
     }
 
     public String getTimeString(int[] birthTime){
-        String hour, sMinute = "", total;
+        String sMinute = "", total;
 
+        if (mBirthTime[3] == Calendar.AM){
+            AM_PM = "AM";
+        }else{
+            AM_PM = "PM";
+        }
         if(birthTime[1] < 10){
             sMinute = "0" + Integer.toString(birthTime[1]);
         }else{

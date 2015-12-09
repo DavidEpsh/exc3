@@ -83,16 +83,16 @@ public class FragmentEditStudent extends Fragment {
     }
 
     public void saveStudent(){
-        Student newSt = new Student(firstName.getText().toString(),
-                lastName.getText().toString(),
-                id.getText().toString(),
-                phone.getText().toString(),
-                address.getText().toString(),
-                checkBox.isChecked());
-
-        StudentDB.getInstance().editStudent(newSt, studentPos);
-        mActivity.setResultAndFinish();
-        Toast.makeText(getContext(), firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
+//        Student newSt = new Student(firstName.getText().toString(),
+//                lastName.getText().toString(),
+//                id.getText().toString(),
+//                phone.getText().toString(),
+//                address.getText().toString(),
+//                checkBox.isChecked());
+//
+//        StudentDB.getInstance().editStudent(newSt, studentPos);
+//        mActivity.setResultAndFinish();
+//        Toast.makeText(getContext(), firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
     }
 
     public void setValues(){

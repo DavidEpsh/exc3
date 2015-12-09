@@ -9,16 +9,35 @@ public class Student {
     String phoneNumber;
     String address;
     boolean isChecked;
+    int[] birthDate, birthTime;
     int tempStudentImage;
     String studentImageGallery;
 
-    public Student(String firstName,String lastName, String id, String phoneNumber, String address, boolean ischecked){
+    public Student(String firstName,String lastName, String id, String phoneNumber, String address, boolean ischecked, int[] birthDate, int[] birthTime){
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.isChecked = ischecked;
+        this.birthDate = birthDate;
+        this.birthTime = birthTime;
+    }
+
+    public void setBirthDate(int[] birthDate){
+        this.birthDate = birthDate;
+    }
+
+    public int[] getBirthDate(){
+        return this.birthDate;
+    }
+
+    public void setBirthTime(int[] birthTime){
+        this.birthTime = birthTime;
+    }
+
+    public int[] getBirthTime(){
+        return this.birthTime;
     }
 
     public String getLastName() {
