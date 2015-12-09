@@ -2,8 +2,10 @@ package david.elena.exc3.fragments;
 
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import david.elena.exc3.R;
@@ -36,8 +41,8 @@ public class FragmentAddStudent extends Fragment {
     Button buttonBirthTime;
     int[] mBirthDate, mBirthTime;
     int mYear, mMonth, mDay;
-    int mHour, mSeconds;
-    String AM_PM;
+    int mHour, mMinutes, am_pm;
+    String AM_PM, mMinute;
 
     public FragmentAddStudent() {
     }
@@ -140,19 +145,11 @@ public class FragmentAddStudent extends Fragment {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        mHour = c.get(Calendar.HOUR);
-        mSeconds = c.get(Calendar.SECOND);
+        mBirthTime[0] = c.get(Calendar.HOUR);
+        mBirthTime[1] = c.get(Calendar.SECOND);
 
-        int am_pm = c.get(Calendar.AM_PM);
-        if(am_pm == Calendar.PM){
-            AM_PM = "PM";
-        }else{
-            AM_PM = "AM";
-        }
-
-        mBirthTime[0] = mHour;
-        mBirthTime[1] = mSeconds;
-        buttonBirthTime.setText(mHour + ":" + mSeconds + " " + AM_PM);
+        am_pm = c.get(Calendar.AM_PM);
+        buttonBirthTime.setText(getTimeString(mBirthTime));
 
         mBirthDate[0] = mDay;
         mBirthDate[1] = mMonth;
@@ -180,6 +177,48 @@ public class FragmentAddStudent extends Fragment {
                 datePicker.show();
             }
         });
+
+        final TimePickerDialog timePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if (hourOfDay == 0){
+                    am_pm = Calendar.AM;
+                    AM_PM = "AM";
+
+                }else if(hourOfDay >= 12){
+                    hourOfDay = hourOfDay % 12;
+                    am_pm = Calendar.PM;
+                    AM_PM = "PM";
+                }else{
+                    am_pm = Calendar.AM;
+                    AM_PM = "AM";
+                }
+
+                mBirthTime[0] = hourOfDay;
+                mBirthTime[1] = minute;
+                buttonBirthTime.setText(getTimeString(mBirthTime));
+            }
+        },mHour, mMinutes, false);
+
+        buttonBirthTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker.show();
+            }
+        });
+    }
+
+    public String getTimeString(int[] birthTime){
+        String hour, sMinute = "", total;
+
+        if(birthTime[1] < 10){
+            sMinute = "0" + Integer.toString(birthTime[1]);
+        }else{
+            sMinute = Integer.toString(birthTime[1]);
+        }
+        total = Integer.toString(birthTime[0]) + ":" + sMinute + " " + AM_PM;
+
+        return total;
     }
 
     public void setStudent(Student student){
