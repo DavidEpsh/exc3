@@ -35,14 +35,7 @@ public class AddStudentActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        if(getIntent() != null) {
-            studentPos = getIntent().getIntExtra(MainActivity.ITEM_IN_LIST, 0);
-            currStudent = StudentDB.getInstance().getStudent(studentPos);
-        }
-
-        fragmentAdd = new FragmentAddStudent();
-        fragmentAdd.setStudent(currStudent);
-        openFragment(fragmentAdd);
+        openFragment(new FragmentAddStudent());
         setTitle("Add Student");
     }
 

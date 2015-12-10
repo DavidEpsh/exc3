@@ -41,7 +41,7 @@ public class FragmentAddStudent extends Fragment {
     Button buttonBirthTime;
     int[] mBirthDate, mBirthTime;
     int mYear, mMonth, mDay;
-    int mHour, mMinutes;
+    boolean is24H;
     String AM_PM;
 
     public FragmentAddStudent() {
@@ -147,8 +147,8 @@ public class FragmentAddStudent extends Fragment {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        mBirthTime[0] = c.get(Calendar.HOUR);
-        mBirthTime[1] = c.get(Calendar.SECOND);
+        mBirthTime[0] = c.get(Calendar.HOUR_OF_DAY);
+        mBirthTime[1] = c.get(Calendar.MINUTE);
         mBirthTime[2] = c.get(Calendar.AM_PM);
 
         buttonBirthTime.setText(getTimeString(mBirthTime));
@@ -184,20 +184,11 @@ public class FragmentAddStudent extends Fragment {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                if(hourOfDay >= 12){
-                    hourOfDay = hourOfDay % 12;
-                    mBirthTime[3] = Calendar.PM;
-                    AM_PM = "PM";
-                }else{
-                    mBirthTime[3] = Calendar.AM;
-                    AM_PM = "AM";
-                }
-
                 mBirthTime[0] = hourOfDay;
                 mBirthTime[1] = minute;
                 buttonBirthTime.setText(getTimeString(mBirthTime));
             }
-        },Calendar.HOUR_OF_DAY, mMinutes, false);
+        },mBirthTime[0], mBirthTime[1], true);
 
         buttonBirthTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,18 +200,32 @@ public class FragmentAddStudent extends Fragment {
 
     public String getTimeString(int[] birthTime){
         String sMinute = "", total;
+        int tempHour = birthTime[0];
 
-        if (mBirthTime[3] == Calendar.AM){
+        if (mBirthTime[2] == Calendar.AM){
             AM_PM = "AM";
         }else{
             AM_PM = "PM";
         }
+
+        if(birthTime[0] > 12){
+            tempHour = tempHour % 12;
+            mBirthTime[2] = Calendar.PM;
+            AM_PM = "PM";
+        }else if(birthTime[0] == 12) {
+            mBirthTime[2] = Calendar.PM;
+            AM_PM = "PM";
+        }else{
+            mBirthTime[2] = Calendar.AM;
+            AM_PM = "AM";
+        }
+
         if(birthTime[1] < 10){
             sMinute = "0" + Integer.toString(birthTime[1]);
         }else{
             sMinute = Integer.toString(birthTime[1]);
         }
-        total = Integer.toString(birthTime[0]) + ":" + sMinute + " " + AM_PM;
+        total = Integer.toString(tempHour) + ":" + sMinute + " " + AM_PM;
 
         return total;
     }

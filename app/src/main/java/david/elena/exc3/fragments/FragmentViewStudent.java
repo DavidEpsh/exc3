@@ -99,7 +99,11 @@ public class FragmentViewStudent extends Fragment {
     private String setBirthTime(int[] birthTime){
 
         String sMinute = "",AM_PM, total;
+        int tempHour = birthTime[0];
 
+        if(tempHour > 12){
+            tempHour = tempHour % 12;
+        }
         if (birthTime[2] == Calendar.AM){
             AM_PM = "AM";
         }else{
@@ -110,13 +114,13 @@ public class FragmentViewStudent extends Fragment {
         }else{
             sMinute = Integer.toString(birthTime[1]);
         }
-        total = Integer.toString(birthTime[0]) + ":" + sMinute + " " + AM_PM;
+        total = Integer.toString(tempHour) + ":" + sMinute + " " + AM_PM;
 
         return total;
     }
 
     private String setBirthDate(int[] birthDate){
 
-       return birthDate[0] + "/" + birthDate[1] + "/" + birthDate[2];
+       return birthDate[0] + "/" + (birthDate[1]+1) + "/" + birthDate[2];
     }
 }

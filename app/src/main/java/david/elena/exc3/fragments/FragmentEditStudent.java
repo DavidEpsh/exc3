@@ -1,6 +1,8 @@
 package david.elena.exc3.fragments;
 
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import david.elena.exc3.R;
 import david.elena.exc3.StudentDB;
@@ -29,6 +35,10 @@ public class FragmentEditStudent extends Fragment {
     int studentPos;
     Student currStudent;
     ViewStudentActivity mActivity;
+    Button buttonBirthDate;
+    Button buttonBirthTime;
+    int[] mBirthDate, mBirthTime;
+    String AM_PM;
 
     public FragmentEditStudent() {
     }
@@ -45,9 +55,15 @@ public class FragmentEditStudent extends Fragment {
         phone = (EditText) mRootView.findViewById(R.id.edit_text_student_phone_edit_student);
         address = (EditText) mRootView.findViewById(R.id.edit_text_student_address_edit_student);
         checkBox = (CheckBox) mRootView.findViewById(R.id.checkbox_edit_student);
+        buttonBirthDate = (Button) mRootView.findViewById(R.id.button_birth_date_edit_student);
+        buttonBirthTime = (Button) mRootView.findViewById(R.id.button_birth_time_edit_student);
+
+        mBirthDate = currStudent.getBirthDate();
+        mBirthTime = currStudent.getBirthTime();
 
         getActivity().setTitle("Edit Student Details");
         setValues();
+        setDateAndTime();
 
         Button cancel = (Button) mRootView.findViewById(R.id.button_cancel_edit_student);
         Button delete = (Button) mRootView.findViewById(R.id.button_delete_edit_student);
@@ -83,16 +99,18 @@ public class FragmentEditStudent extends Fragment {
     }
 
     public void saveStudent(){
-//        Student newSt = new Student(firstName.getText().toString(),
-//                lastName.getText().toString(),
-//                id.getText().toString(),
-//                phone.getText().toString(),
-//                address.getText().toString(),
-//                checkBox.isChecked());
-//
-//        StudentDB.getInstance().editStudent(newSt, studentPos);
-//        mActivity.setResultAndFinish();
-//        Toast.makeText(getContext(), firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
+        Student newSt = new Student(firstName.getText().toString(),
+                lastName.getText().toString(),
+                id.getText().toString(),
+                phone.getText().toString(),
+                address.getText().toString(),
+                checkBox.isChecked(),
+                mBirthDate,
+                mBirthTime);
+
+        StudentDB.getInstance().editStudent(newSt, studentPos);
+        mActivity.setResultAndFinish();
+        Toast.makeText(getContext(), firstName.getText().toString() + " saved", Toast.LENGTH_SHORT).show();
     }
 
     public void setValues(){
@@ -104,6 +122,8 @@ public class FragmentEditStudent extends Fragment {
             phone.setText(currStudent.getPhoneNumber());
             address.setText(currStudent.getAddress());
             checkBox.setChecked(currStudent.isChecked());
+            buttonBirthTime.setText(setBirthTime(currStudent.getBirthTime()));
+            buttonBirthDate.setText(setBirthDate(currStudent.getBirthDate()));
         }else {
             Toast.makeText(getContext(), "Failed to open student details", Toast.LENGTH_SHORT).show();
         }
@@ -139,5 +159,82 @@ public class FragmentEditStudent extends Fragment {
     public void setStudent(Student student, int studentPos){
         this.currStudent = student;
         this.studentPos = studentPos;
+    }
+
+    private void setDateAndTime(){
+        final Calendar c = Calendar.getInstance();
+
+        final DatePickerDialog datePicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                mBirthDate[0] = dayOfMonth;
+                mBirthDate[1] = monthOfYear;
+                mBirthDate[2] = year;
+
+                buttonBirthDate.setText(setBirthTime(mBirthDate));
+            }
+
+        },mBirthDate[2],mBirthDate[1],mBirthDate[0]);
+
+        buttonBirthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker.show();
+            }
+        });
+
+        final TimePickerDialog timePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                mBirthTime[0] = hourOfDay;
+                mBirthTime[1] = minute;
+                buttonBirthTime.setText(setBirthTime(mBirthTime));
+            }
+        },mBirthTime[0], mBirthTime[1], true);
+
+        buttonBirthTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker.show();
+            }
+        });
+    }
+
+    private String setBirthTime(int[] birthTime){
+        String sMinute = "",AM_PM, total;
+        int tempHour = birthTime[0];
+        if (mBirthTime[2] == Calendar.AM){
+            AM_PM = "AM";
+        }else{
+            AM_PM = "PM";
+        }
+
+        if(birthTime[0] > 12){
+            tempHour = tempHour % 12;
+            mBirthTime[2] = Calendar.PM;
+            AM_PM = "PM";
+        }else if(birthTime[0] == 12) {
+            mBirthTime[2] = Calendar.PM;
+            AM_PM = "PM";
+        }else{
+            mBirthTime[2] = Calendar.AM;
+            AM_PM = "AM";
+        }
+
+        if(birthTime[1] < 10){
+            sMinute = "0" + Integer.toString(birthTime[1]);
+        }else{
+            sMinute = Integer.toString(birthTime[1]);
+        }
+        total = Integer.toString(tempHour) + ":" + sMinute + " " + AM_PM;
+
+        return total;
+    }
+
+    private String setBirthDate(int[] birthDate){
+
+        return birthDate[0] + "/" + (birthDate[1]+1) + "/" + birthDate[2];
     }
 }
